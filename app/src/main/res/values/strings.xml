@@ -5,4 +5,5 @@
     <string name="save">Save</string>
     <string name="published_date">Published date</string>
     <string name="create_book">Create book</string>
+    <string name="delete">Delete</string>
 </resources>

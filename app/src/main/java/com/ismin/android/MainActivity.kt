@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.bookList.adapter = BookAdapter()
+        binding.bookList.adapter = BookAdapter(BookAdapter.OnClickListener { viewModel.removeBook(it) })
 
         setContentView(binding.root)
     }

@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ismin.android.databinding.RowBookBinding
 import com.ismin.android.entities.Book
 
-class BookAdapter : ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
+class BookAdapter(private val onClickListener: OnClickListener) :
+    ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
     companion object DiffCallback : DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(
             oldItem: Book,
@@ -25,9 +26,18 @@ class BookAdapter : ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
         }
     }
 
-    class ViewHolder(private var binding: RowBookBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(book: Book) {
-            binding.book = book
+    class OnClickListener(val clickListener: (item: Book) -> Unit) {
+        fun onClick(item: Book) = clickListener(item)
+    }
+
+    class ViewHolder(
+        private var binding: RowBookBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Book, onClickListener: OnClickListener) {
+            binding.book = item
+            binding.deleteBookRow.setOnClickListener {
+                onClickListener.onClick(item)
+            }
             binding.executePendingBindings()
         }
     }
@@ -47,6 +57,6 @@ class BookAdapter : ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, onClickListener)
     }
 }

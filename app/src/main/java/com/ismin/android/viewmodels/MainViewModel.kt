@@ -17,4 +17,9 @@ class MainViewModel : ViewModel() {
         bookshelf.addBook(book)
         _books.value = bookshelf.getAllBooks()
     }
+
+    fun removeBook(book: Book) {
+        bookshelf.removeBook(book.title)
+        _books.value = bookshelf.getAllBooks()
+    }
 }

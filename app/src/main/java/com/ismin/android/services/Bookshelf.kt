@@ -14,4 +14,6 @@ class Bookshelf {
     fun getBooksOf(author: String): List<Book> = this.storage.filter { it.value.author == author }.values.sortedBy { book -> book.title }
 
     fun getTotalNumberOfBooks(): Int = this.storage.size
+
+    fun removeBook(title: String): Book? = this.storage.remove(title)
 }
