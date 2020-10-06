@@ -20,7 +20,7 @@ class BookshelfUnitTest {
         title = "À la recherche du temps perdu",
         author = "Marcel Proust",
         date = "1927"
-    );
+    )
 
     private lateinit var bookshelf: Bookshelf
 
@@ -31,16 +31,16 @@ class BookshelfUnitTest {
 
     @Test
     fun getBook_returns_stored_book() {
-        bookshelf.addBook(theLordOfTheRings);
+        bookshelf.addBook(theLordOfTheRings)
 
         assertEquals(bookshelf.getBook("The Lord of the Rings"), theLordOfTheRings)
     }
 
     @Test
     fun getAllBooks_returns_all_stored_books() {
-        bookshelf.addBook(theLordOfTheRings);
-        bookshelf.addBook(theHobbit);
-        bookshelf.addBook(aLaRechercheDuTempsPerdu);
+        bookshelf.addBook(theLordOfTheRings)
+        bookshelf.addBook(theHobbit)
+        bookshelf.addBook(aLaRechercheDuTempsPerdu)
 
         assertEquals(
             bookshelf.getAllBooks(),
@@ -50,9 +50,9 @@ class BookshelfUnitTest {
 
     @Test
     fun getBooksOf_returns_all_books_with_input_author() {
-        bookshelf.addBook(theLordOfTheRings);
-        bookshelf.addBook(theHobbit);
-        bookshelf.addBook(aLaRechercheDuTempsPerdu);
+        bookshelf.addBook(theLordOfTheRings)
+        bookshelf.addBook(theHobbit)
+        bookshelf.addBook(aLaRechercheDuTempsPerdu)
 
         assertEquals(
             bookshelf.getBooksOf("J. R. R. Tolkien"),
@@ -62,19 +62,19 @@ class BookshelfUnitTest {
 
     @Test
     fun getTotalNumberOfBooks_returns_number_of_stored_books() {
-        bookshelf.addBook(theLordOfTheRings);
-        bookshelf.addBook(theHobbit);
-        bookshelf.addBook(aLaRechercheDuTempsPerdu);
+        bookshelf.addBook(theLordOfTheRings)
+        bookshelf.addBook(theHobbit)
+        bookshelf.addBook(aLaRechercheDuTempsPerdu)
 
         assertEquals(bookshelf.getTotalNumberOfBooks(), 3)
     }
 
     @Test
     fun should_not_duplicate_a_book_already_stored() {
-        bookshelf.addBook(theLordOfTheRings);
+        bookshelf.addBook(theLordOfTheRings)
         assertEquals(bookshelf.getTotalNumberOfBooks(), 1)
 
-        bookshelf.addBook(theLordOfTheRings);
+        bookshelf.addBook(theLordOfTheRings)
         assertEquals(bookshelf.getTotalNumberOfBooks(), 1)
     }
 }
