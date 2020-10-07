@@ -1,5 +1,6 @@
 package com.ismin.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.ismin.android.databinding.ActivityMainBinding
 import com.ismin.android.viewmodels.MainViewModel
+
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
