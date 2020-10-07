@@ -7,19 +7,35 @@ import com.ismin.android.entities.Book
 import com.ismin.android.services.Bookshelf
 
 class MainViewModel : ViewModel() {
-    private val bookshelf = Bookshelf()
-
+    private val _bookshelf = Bookshelf()
     private val _books = MutableLiveData<List<Book>>(emptyList())
     val books: LiveData<List<Book>>
         get() = _books
 
     fun addBook(book: Book) {
-        bookshelf.addBook(book)
-        _books.value = bookshelf.getAllBooks()
+        _bookshelf.addBook(book)
+        _books.value = _bookshelf.getAllBooks()
     }
 
     fun removeBook(book: Book) {
-        bookshelf.removeBook(book.title)
-        _books.value = bookshelf.getAllBooks()
+        _bookshelf.removeBook(book.title)
+        _books.value = _bookshelf.getAllBooks()
+    }
+
+    fun clearAllBooks() {
+        _bookshelf.clear()
+        _books.value = _bookshelf.getAllBooks()
+    }
+
+    private val _navigateToCreateBook = MutableLiveData<Unit>()
+    val navigateToCreateBook: LiveData<Unit>
+        get() = _navigateToCreateBook
+
+    fun navigateToCreateBook() {
+        _navigateToCreateBook.value = Unit
+    }
+
+    fun navigateToCreateBookDone() {
+        _navigateToCreateBook.value = null
     }
 }

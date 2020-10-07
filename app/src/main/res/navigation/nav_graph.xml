@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/bookListFragment">
+
+    <fragment
+        android:id="@+id/bookListFragment"
+        android:name="com.ismin.android.fragments.BookListFragment"
+        android:label="BookListFragment"
+        tools:layout="@layout/fragment_book_list">
+        <action
+            android:id="@+id/action_bookListFragment_to_createBookFragment"
+            app:destination="@id/createBookFragment" />
+        <argument
+            android:name="new book"
+            app:argType="com.ismin.android.entities.Book" />
+    </fragment>
+    <fragment
+        android:id="@+id/createBookFragment"
+        android:name="com.ismin.android.fragments.CreateBookFragment"
+        android:label="CreateBookFragment"
+        tools:layout="@layout/fragment_create_book">
+        <action
+            android:id="@+id/action_createBookFragment_to_bookListFragment"
+            app:destination="@id/bookListFragment"
+            app:popUpTo="@id/bookListFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+</navigation>

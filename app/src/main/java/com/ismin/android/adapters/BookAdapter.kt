@@ -10,6 +10,8 @@ import com.ismin.android.entities.Book
 
 class BookAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
+
+    // This refresh the list if the contents or items are different
     companion object DiffCallback : DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(
             oldItem: Book,
@@ -26,8 +28,9 @@ class BookAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (item: Book) -> Unit) {
-        fun onClick(item: Book) = clickListener(item)
+    // A click listener
+    fun interface OnClickListener {
+        fun onClick(item: Book)
     }
 
     class ViewHolder(

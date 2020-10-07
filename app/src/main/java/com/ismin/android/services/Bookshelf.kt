@@ -16,4 +16,6 @@ class Bookshelf {
     fun getTotalNumberOfBooks(): Int = this.storage.size
 
     fun removeBook(title: String): Book? = this.storage.remove(title)
+
+    fun clear() = this.storage.clear()
 }

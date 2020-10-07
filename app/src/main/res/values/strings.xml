@@ -6,4 +6,8 @@
     <string name="published_date">Published date</string>
     <string name="create_book">Create book</string>
     <string name="delete">Delete</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clear">Clear</string>
+    <string name="add_a_book_description">Add a book</string>
 </resources>

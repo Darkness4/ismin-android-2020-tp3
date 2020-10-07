@@ -11,5 +11,5 @@ fun bindGithubAdapter(
     books: List<Book>?
 ) {
     val adapter = recyclerView.adapter as BookAdapter
-    books?.let{ adapter.submitList(it) }
+    books?.let { adapter.submitList(it) }
 }

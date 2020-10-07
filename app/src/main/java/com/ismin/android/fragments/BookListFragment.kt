@@ -1,0 +1,53 @@
+package com.ismin.android.fragments
+
+import android.content.res.Configuration
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.ismin.android.adapters.BookAdapter
+import com.ismin.android.databinding.FragmentBookListBinding
+import com.ismin.android.viewmodels.MainViewModel
+
+class BookListFragment : Fragment() {
+    private val activityViewModel by viewModels<MainViewModel>(
+        ownerProducer = { requireActivity() }
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Bind
+        val binding = FragmentBookListBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.activityViewModel = activityViewModel
+
+        binding.bookList.layoutManager =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                GridLayoutManager(context, 2)
+            } else {
+                GridLayoutManager(context, 4)
+            }
+        binding.bookList.adapter =
+            BookAdapter { activityViewModel.removeBook(it) }
+
+        activityViewModel.navigateToCreateBook.observe(
+            viewLifecycleOwner,
+            {
+                if (it != null) {
+                    findNavController().navigate(
+                        BookListFragmentDirections.actionBookListFragmentToCreateBookFragment()
+                    )
+                    activityViewModel.navigateToCreateBookDone()
+                }
+            }
+        )
+        return binding.root
+    }
+}

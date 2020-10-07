@@ -11,8 +11,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -22,6 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@{book.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Book Title" />
@@ -33,6 +34,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@{book.author}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toStartOf="@+id/delete_book_row"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/row_book_title"
             tools:text="Book Author" />
@@ -44,11 +47,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@{book.date.toString()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/row_book_author"
+            app:layout_constraintStart_toEndOf="@+id/row_book_author"
+            app:layout_constraintTop_toBottomOf="@+id/row_book_title"
             tools:text="Book Date" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_book_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,9 +59,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/delete"
-            app:layout_constraintBottom_toBottomOf="@+id/row_book_date"
+            app:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/row_book_title" />
+            app:layout_constraintTop_toBottomOf="@+id/row_book_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
