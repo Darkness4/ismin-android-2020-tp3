@@ -1,9 +1,35 @@
 package com.ismin.android.services
 
 import com.ismin.android.entities.Book
+import org.joda.time.DateTime
 
 class Bookshelf {
-    private val storage = mutableMapOf<String, Book>()
+    private val storage = mutableMapOf(
+        Pair(
+            "The Lord of the Rings",
+            Book(
+                title = "The Lord of the Rings",
+                author = "J. R. R. Tolkien",
+                date = DateTime(1954, 2, 15, 0, 0)
+            )
+        ),
+        Pair(
+            "The Hobbit",
+            Book(
+                title = "The Hobbit",
+                author = "J. R. R. Tolkien",
+                date = DateTime(1937, 9, 21, 0, 0)
+            )
+        ),
+        Pair(
+            "À la recherche du temps perdu",
+            Book(
+                title = "À la recherche du temps perdu",
+                author = "Marcel Proust",
+                date = DateTime(1927, 1, 1, 0, 0)
+            )
+        )
+    )
 
     fun addBook(book: Book) = this.storage.set(book.title, book)
 
@@ -11,7 +37,8 @@ class Bookshelf {
 
     fun getAllBooks(): List<Book> = this.storage.values.sortedBy { book -> book.title }
 
-    fun getBooksOf(author: String): List<Book> = this.storage.filter { it.value.author == author }.values.sortedBy { book -> book.title }
+    fun getBooksOf(author: String): List<Book> =
+        this.storage.filter { it.value.author == author }.values.sortedBy { book -> book.title }
 
     fun getTotalNumberOfBooks(): Int = this.storage.size
 

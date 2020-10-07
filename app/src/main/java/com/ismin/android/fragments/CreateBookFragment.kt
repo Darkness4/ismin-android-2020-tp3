@@ -1,9 +1,11 @@
 package com.ismin.android.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +39,7 @@ class CreateBookFragment : Fragment() {
                             it
                         )
                     )
+                    closeKeyBoard()
                     viewModel.navigateToBookListDone()
                 }
             }
@@ -57,5 +60,13 @@ class CreateBookFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun closeKeyBoard() {
+        activity?.currentFocus?.let {
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 }

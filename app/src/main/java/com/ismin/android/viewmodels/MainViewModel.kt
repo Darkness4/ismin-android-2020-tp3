@@ -8,7 +8,7 @@ import com.ismin.android.services.Bookshelf
 
 class MainViewModel : ViewModel() {
     private val _bookshelf = Bookshelf()
-    private val _books = MutableLiveData<List<Book>>(emptyList())
+    private val _books = MutableLiveData(_bookshelf.getAllBooks())
     val books: LiveData<List<Book>>
         get() = _books
 
