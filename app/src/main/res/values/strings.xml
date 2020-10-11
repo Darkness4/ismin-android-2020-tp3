@@ -10,4 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="clear">Clear</string>
     <string name="add_a_book_description">Add a book</string>
+    <string name="title_empty_error">Title shouldn\'t be empty.</string>
+    <string name="author_empty_error">Author shouldn\'t be empty.</string>
+    <string name="create_book_validation_error">Some field are not valid.</string>
 </resources>

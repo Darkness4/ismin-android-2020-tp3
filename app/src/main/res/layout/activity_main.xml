@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.ismin.android.viewmodels.MainViewModel" />
+            type="com.ismin.android.presentation.viewmodels.MainViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".presentation.MainActivity">
 
         <fragment
             android:id="@+id/my_nav_host_fragment"

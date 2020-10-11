@@ -1,6 +1,6 @@
-package com.ismin.android.services
+package com.ismin.android.domain.services
 
-import com.ismin.android.entities.Book
+import com.ismin.android.domain.entities.Book
 import org.joda.time.DateTime
 
 class Bookshelf {
@@ -42,7 +42,7 @@ class Bookshelf {
 
     fun getTotalNumberOfBooks(): Int = this.storage.size
 
-    fun removeBook(title: String): Book? = this.storage.remove(title)
+    fun removeBook(title: String) { this.storage.remove(title) }
 
     fun clear() = this.storage.clear()
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ismin.android.viewmodels.CreateBookViewModel" />
+            type="com.ismin.android.presentation.viewmodels.CreateBookViewModel" />
     </data>
 
 

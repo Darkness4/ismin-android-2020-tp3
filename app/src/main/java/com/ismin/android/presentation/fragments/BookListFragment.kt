@@ -1,4 +1,4 @@
-package com.ismin.android.fragments
+package com.ismin.android.presentation.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ismin.android.adapters.BookAdapter
 import com.ismin.android.databinding.FragmentBookListBinding
-import com.ismin.android.viewmodels.MainViewModel
+import com.ismin.android.presentation.adapters.BookAdapter
+import com.ismin.android.presentation.viewmodels.MainViewModel
 
 class BookListFragment : Fragment() {
     private val activityViewModel by viewModels<MainViewModel>(

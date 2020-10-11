@@ -1,4 +1,4 @@
-package com.ismin.android.adapters
+package com.ismin.android.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ismin.android.databinding.RowBookBinding
-import com.ismin.android.entities.Book
+import com.ismin.android.domain.entities.Book
 
 class BookAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Book, BookAdapter.ViewHolder>(DiffCallback) {
@@ -17,7 +17,7 @@ class BookAdapter(private val onClickListener: OnClickListener) :
             oldItem: Book,
             newItem: Book
         ): Boolean {
-            return oldItem === newItem
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(

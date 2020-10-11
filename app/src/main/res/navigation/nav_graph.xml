@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bookListFragment"
-        android:name="com.ismin.android.fragments.BookListFragment"
+        android:name="com.ismin.android.presentation.fragments.BookListFragment"
         android:label="The Bookshelf"
         tools:layout="@layout/fragment_book_list">
         <action
@@ -15,11 +15,11 @@
             app:destination="@id/createBookFragment" />
         <argument
             android:name="new book"
-            app:argType="com.ismin.android.entities.Book" />
+            app:argType="com.ismin.android.domain.entities.Book" />
     </fragment>
     <fragment
         android:id="@+id/createBookFragment"
-        android:name="com.ismin.android.fragments.CreateBookFragment"
+        android:name="com.ismin.android.presentation.fragments.CreateBookFragment"
         android:label="Create a new book"
         tools:layout="@layout/fragment_create_book">
         <action

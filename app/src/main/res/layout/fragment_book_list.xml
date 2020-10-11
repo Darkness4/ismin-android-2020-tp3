@@ -7,21 +7,30 @@
 
         <variable
             name="activityViewModel"
-            type="com.ismin.android.viewmodels.MainViewModel" />
+            type="com.ismin.android.presentation.viewmodels.MainViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/book_list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:bind="@{activityViewModel.books}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:itemCount="16"
-            tools:listitem="@layout/row_book" />
+            app:onRefreshListener="@{activityViewModel::manualRefresh}"
+            app:refreshing="@{activityViewModel.isManuallyRefreshing}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/book_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bind="@{activityViewModel.books}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:itemCount="16"
+                tools:listitem="@layout/row_book" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_book_button"
@@ -30,11 +39,11 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
+            android:contentDescription="@string/add_a_book_description"
             android:onClick="@{() -> activityViewModel.navigateToCreateBook()}"
             app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            android:contentDescription="@string/add_a_book_description" />
+            app:srcCompat="@drawable/ic_baseline_add_24" />
     </RelativeLayout>
 </layout>

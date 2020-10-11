@@ -7,7 +7,7 @@
 
         <variable
             name="book"
-            type="com.ismin.android.entities.Book" />
+            type="com.ismin.android.domain.entities.Book" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

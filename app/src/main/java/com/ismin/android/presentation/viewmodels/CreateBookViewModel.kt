@@ -1,22 +1,19 @@
-package com.ismin.android.viewmodels
+package com.ismin.android.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ismin.android.entities.Book
+import com.ismin.android.core.mappers.EntityMappable
+import com.ismin.android.domain.entities.Book
 import org.joda.time.DateTime
 
-class CreateBookViewModel : ViewModel() {
+class CreateBookViewModel : ViewModel(), EntityMappable<Book> {
     val author = MutableLiveData("")
     val title = MutableLiveData("")
     private val _date = MutableLiveData<DateTime>()
 
     fun setDate(date: DateTime) {
         _date.value = date
-    }
-
-    fun getBook(): Book {
-        return Book(title.value!!, author.value!!, _date.value!!)
     }
 
     private val _navigateToBookList = MutableLiveData<Book>()
@@ -30,4 +27,6 @@ class CreateBookViewModel : ViewModel() {
     fun navigateToBookListDone() {
         _navigateToBookList.value = null
     }
+
+    override fun asEntity() = Book(title.value!!, author.value!!, _date.value!!)
 }

@@ -1,4 +1,4 @@
-package com.ismin.android.fragments
+package com.ismin.android.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -6,19 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.ismin.android.R
 import com.ismin.android.databinding.FragmentCreateBookBinding
-import com.ismin.android.viewmodels.CreateBookViewModel
-import com.ismin.android.viewmodels.MainViewModel
+import com.ismin.android.presentation.viewmodels.CreateBookViewModel
+import com.ismin.android.presentation.viewmodels.MainViewModel
 import org.joda.time.DateTime
 
 class CreateBookFragment : Fragment() {
     private val activityViewModel by viewModels<MainViewModel>(
         ownerProducer = { requireActivity() }
     )
-    val viewModel by viewModels<CreateBookViewModel>()
+    private val viewModel by viewModels<CreateBookViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,20 +35,36 @@ class CreateBookFragment : Fragment() {
         viewModel.navigateToBookList.observe(
             viewLifecycleOwner,
             {
-                if (it != null) {
+                it?.let {
                     activityViewModel.addBook(it)
                     findNavController().navigate(
                         CreateBookFragmentDirections.actionCreateBookFragmentToBookListFragment(
                             it
                         )
                     )
-                    closeKeyBoard()
                     viewModel.navigateToBookListDone()
                 }
             }
         )
 
+        binding.editTextTitle.doAfterTextChanged {
+            binding.editTextTitle.error = if (viewModel.title.value.isNullOrBlank()) {
+                getString(R.string.title_empty_error)
+            } else {
+                null
+            }
+        }
+
+        binding.editTextAuthor.doAfterTextChanged {
+            binding.editTextAuthor.error = if (viewModel.author.value.isNullOrBlank()) {
+                getString(R.string.author_empty_error)
+            } else {
+                null
+            }
+        }
+
         binding.saveButton.setOnClickListener {
+            closeKeyBoard()
             viewModel.setDate(
                 DateTime(
                     binding.datePicker.year,
@@ -56,7 +75,15 @@ class CreateBookFragment : Fragment() {
                     0
                 )
             )
-            viewModel.navigateToBookList(viewModel.getBook())
+            if (binding.editTextAuthor.error == null && binding.editTextTitle.error == null) {
+                viewModel.navigateToBookList(viewModel.asEntity())
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.create_book_validation_error),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         return binding.root
