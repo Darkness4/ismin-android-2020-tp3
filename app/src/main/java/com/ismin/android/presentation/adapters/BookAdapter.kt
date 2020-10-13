@@ -13,24 +13,14 @@ class BookAdapter(private val onClickListener: OnClickListener) :
 
     // This refresh the list if the contents or items are different
     companion object DiffCallback : DiffUtil.ItemCallback<Book>() {
-        override fun areItemsTheSame(
-            oldItem: Book,
-            newItem: Book
-        ): Boolean {
-            return oldItem == newItem
-        }
+        override fun areItemsTheSame(oldItem: Book, newItem: Book) = oldItem.title == newItem.title
 
-        override fun areContentsTheSame(
-            oldItem: Book,
-            newItem: Book
-        ): Boolean {
-            return oldItem.title == newItem.title
-        }
+        override fun areContentsTheSame(oldItem: Book, newItem: Book) = oldItem == newItem
     }
 
     // A click listener
-    fun interface OnClickListener {
-        fun onClick(item: Book)
+    class OnClickListener(private val onClickListener: (Book) -> Unit) {
+        fun onClick(item: Book) = onClickListener(item)
     }
 
     class ViewHolder(

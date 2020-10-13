@@ -49,8 +49,8 @@ class MainViewModel(private val bookRepository: Lazy<BookRepository>) : ViewMode
         }
     }
 
-    private val _navigateToCreateBook = MutableLiveData<Unit>()
-    val navigateToCreateBook: LiveData<Unit>
+    private val _navigateToCreateBook = MutableLiveData<Unit?>()
+    val navigateToCreateBook: LiveData<Unit?>
         get() = _navigateToCreateBook
 
     fun navigateToCreateBook() {

@@ -23,6 +23,6 @@ fun bindDate(
     textView: TextView,
     date: DateTime?
 ) {
-    val fmt = DateTimeFormat.forPattern("d/M/y")
+    val fmt = DateTimeFormat.forPattern("d MMM y")
     date?.toString(fmt)?.let { textView.text = it }
 }

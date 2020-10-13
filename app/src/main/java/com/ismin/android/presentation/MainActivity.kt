@@ -20,11 +20,13 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var bookRepository: Lazy<BookRepository>
+
+    private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel> { MainViewModel.Factory(bookRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

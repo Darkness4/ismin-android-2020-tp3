@@ -3,7 +3,7 @@
     <string name="author_hint">Author\'s name</string>
     <string name="book_hint">Book\'s title</string>
     <string name="save">Save</string>
-    <string name="published_date">Published date</string>
+    <string name="published_date">Published date:</string>
     <string name="create_book">Create book</string>
     <string name="delete">Delete</string>
     <!-- TODO: Remove or change this placeholder text -->

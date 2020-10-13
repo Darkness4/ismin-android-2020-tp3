@@ -18,7 +18,6 @@ sealed class Result<out T> {
         else null
     }
 
-
     inline fun <R> map(transform: (value: T) -> R): Result<R> {
         return when (this) {
             is Success -> Success(transform(value))
@@ -49,5 +48,4 @@ sealed class Result<out T> {
             is Failure -> onFailure(throwable)
         }
     }
-
 }

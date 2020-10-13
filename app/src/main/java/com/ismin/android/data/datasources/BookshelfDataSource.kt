@@ -7,6 +7,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BookshelfDataSource {
     companion object {
@@ -17,8 +18,8 @@ interface BookshelfDataSource {
     @POST("books")
     suspend fun addBook(@Body book: BookModel)
 
-    @GET("books?limit=100")
-    suspend fun getAllBooks(): PaginatedDto<BookModel>
+    @GET("books")
+    suspend fun getAllBooks(@Query("limit") limit: Int = 100): PaginatedDto<BookModel>
 
     @DELETE("books/{title}")
     suspend fun removeBook(@Path("title") title: String): BookModel?

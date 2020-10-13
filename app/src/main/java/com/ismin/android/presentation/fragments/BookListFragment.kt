@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ismin.android.databinding.FragmentBookListBinding
@@ -17,6 +18,7 @@ class BookListFragment : Fragment() {
     private val activityViewModel by viewModels<MainViewModel>(
         ownerProducer = { requireActivity() }
     )
+    private lateinit var binding: FragmentBookListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +26,7 @@ class BookListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Bind
-        val binding = FragmentBookListBinding.inflate(inflater)
+        binding = FragmentBookListBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.activityViewModel = activityViewModel
 
@@ -35,12 +37,12 @@ class BookListFragment : Fragment() {
                 GridLayoutManager(context, 4)
             }
         binding.bookList.adapter =
-            BookAdapter { activityViewModel.removeBook(it) }
+            BookAdapter(BookAdapter.OnClickListener { activityViewModel.removeBook(it) })
 
         activityViewModel.navigateToCreateBook.observe(
             viewLifecycleOwner,
             {
-                if (it != null) {
+                it?.let {
                     findNavController().navigate(
                         BookListFragmentDirections.actionBookListFragmentToCreateBookFragment()
                     )

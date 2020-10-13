@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/edit_text_layout_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -32,7 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextAuthor"
+                    android:id="@+id/edit_test_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="name"
@@ -44,7 +44,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
+                android:id="@+id/edit_text_layout_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -55,10 +55,10 @@
                 android:hint="@string/book_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_layout_author">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTitle"
+                    android:id="@+id/edit_text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="name"
@@ -68,29 +68,19 @@
                     android:text="@={viewModel.title}" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <DatePicker
-                android:id="@+id/datePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                app:layout_constraintStart_toEndOf="@+id/published_data_label"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
+                android:onClick="@{() -> viewModel.saveButtonPushed()}"
                 android:text="@string/save"
                 app:elevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+                app:layout_constraintTop_toBottomOf="@+id/text_published_date" />
 
             <TextView
                 android:id="@+id/published_data_label"
@@ -98,9 +88,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/published_date"
-                app:layout_constraintBottom_toBottomOf="@+id/datePicker"
+                app:layout_constraintBottom_toBottomOf="@+id/text_published_date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/datePicker" />
+                app:layout_constraintTop_toTopOf="@+id/text_published_date" />
+
+            <TextView
+                android:id="@+id/text_published_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:onClick="@{() -> viewModel.showDatePicker()}"
+                app:layout_constraintStart_toEndOf="@+id/published_data_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_layout_title"
+                app:date="@{viewModel.date}"
+                tools:text="29/01/1998" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

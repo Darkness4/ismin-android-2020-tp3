@@ -17,4 +17,3 @@ data class PaginatedDto<T>(
         val self: String
     )
 }
-

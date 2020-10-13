@@ -17,7 +17,7 @@ class BookRepositoryImpl @Inject constructor(
 ) : BookRepository {
     override suspend fun addBook(book: Book): Result<Unit> {
         return try {
-            val bookModel = book.asModel();
+            val bookModel = book.asModel()
             remoteLazy.get().addBook(bookModel)
             bookDaoLazy.get().insert(bookModel)
             Result.Success(Unit)

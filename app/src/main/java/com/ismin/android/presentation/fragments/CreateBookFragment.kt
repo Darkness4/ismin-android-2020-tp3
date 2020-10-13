@@ -1,5 +1,6 @@
 package com.ismin.android.presentation.fragments
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,69 +23,88 @@ class CreateBookFragment : Fragment() {
         ownerProducer = { requireActivity() }
     )
     private val viewModel by viewModels<CreateBookViewModel>()
+    private lateinit var binding: FragmentCreateBookBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentCreateBookBinding.inflate(layoutInflater)
+        binding = FragmentCreateBookBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
 
         viewModel.navigateToBookList.observe(
             viewLifecycleOwner,
             {
                 it?.let {
+                    closeKeyBoard()
                     activityViewModel.addBook(it)
-                    findNavController().navigate(
-                        CreateBookFragmentDirections.actionCreateBookFragmentToBookListFragment(
-                            it
-                        )
-                    )
+                    findNavController().popBackStack()
                     viewModel.navigateToBookListDone()
                 }
             }
         )
 
-        binding.editTextTitle.doAfterTextChanged {
-            binding.editTextTitle.error = if (viewModel.title.value.isNullOrBlank()) {
-                getString(R.string.title_empty_error)
-            } else {
-                null
-            }
-        }
+        binding.editTextTitle.doAfterTextChanged { viewModel.validateTitle() }
+        binding.editTestAuthor.doAfterTextChanged { viewModel.validateAuthor() }
 
-        binding.editTextAuthor.doAfterTextChanged {
-            binding.editTextAuthor.error = if (viewModel.author.value.isNullOrBlank()) {
-                getString(R.string.author_empty_error)
-            } else {
-                null
+        viewModel.authorError.observe(
+            viewLifecycleOwner,
+            {
+                binding.editTextLayoutAuthor.error = if (it) {
+                    getString(R.string.author_empty_error)
+                } else {
+                    null
+                }
             }
-        }
+        )
 
-        binding.saveButton.setOnClickListener {
-            closeKeyBoard()
-            viewModel.setDate(
-                DateTime(
-                    binding.datePicker.year,
-                    binding.datePicker.month,
-                    binding.datePicker.dayOfMonth,
-                    0,
-                    0,
-                    0
-                )
-            )
-            if (binding.editTextAuthor.error == null && binding.editTextTitle.error == null) {
-                viewModel.navigateToBookList(viewModel.asEntity())
-            } else {
-                Toast.makeText(
-                    context,
-                    getString(R.string.create_book_validation_error),
-                    Toast.LENGTH_LONG
-                ).show()
+        viewModel.titleError.observe(
+            viewLifecycleOwner,
+            {
+                binding.editTextLayoutTitle.error = if (it) {
+                    getString(R.string.title_empty_error)
+                } else {
+                    null
+                }
             }
-        }
+        )
+
+        viewModel.showValidationError.observe(
+            viewLifecycleOwner,
+            {
+                it?.let {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.create_book_validation_error),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    viewModel.showValidationErrorDone()
+                }
+            }
+        )
+
+        viewModel.showDatePicker.observe(
+            viewLifecycleOwner,
+            {
+                it?.let {
+                    val date = viewModel.date.value!!
+                    val dialog = DatePickerDialog(
+                        requireContext(),
+                        { _, year, monthOfYear, dayOfMonth ->
+                            viewModel.date.value = DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0)
+                        },
+                        date.year, date.monthOfYear - 1, date.dayOfMonth
+                    )
+                    dialog.show()
+                    viewModel.showDatePickerDone()
+                }
+            }
+        )
+
+        // Fire validate at least once
+        viewModel.validate()
 
         return binding.root
     }
