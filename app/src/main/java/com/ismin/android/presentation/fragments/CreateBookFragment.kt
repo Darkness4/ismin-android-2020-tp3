@@ -95,7 +95,9 @@ class CreateBookFragment : Fragment() {
                         { _, year, monthOfYear, dayOfMonth ->
                             viewModel.date.value = DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0)
                         },
-                        date.year, date.monthOfYear - 1, date.dayOfMonth
+                        date.year,
+                        date.monthOfYear - 1,
+                        date.dayOfMonth
                     )
                     dialog.show()
                     viewModel.showDatePickerDone()

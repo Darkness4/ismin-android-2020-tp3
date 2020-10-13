@@ -23,8 +23,5 @@ interface BookDao {
     suspend fun delete(book: BookModel)
 
     @Query("SELECT * FROM Book")
-    suspend fun getAllBooks(): List<BookModel>
-
-    @Query("SELECT * FROM Book")
     fun watchAllBooks(): Flow<List<BookModel>>
 }

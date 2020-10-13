@@ -14,16 +14,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val bookRepository: Lazy<BookRepository>) : ViewModel() {
+    init {
+        refreshBooks()
+    }
+
+    /* Book Repository Requests */
     val books = bookRepository.get().watchAllBooks()
         .asLiveData(viewModelScope.coroutineContext + Dispatchers.Default)
 
     private val _networkStatus = MutableLiveData<Result<Unit>>()
     val networkStatus: LiveData<Result<Unit>>
         get() = _networkStatus
-
-    init {
-        refreshBooks()
-    }
 
     private fun refreshBooks() {
         viewModelScope.launch {
@@ -49,6 +50,7 @@ class MainViewModel(private val bookRepository: Lazy<BookRepository>) : ViewMode
         }
     }
 
+    /* Navigation */
     private val _navigateToCreateBook = MutableLiveData<Unit?>()
     val navigateToCreateBook: LiveData<Unit?>
         get() = _navigateToCreateBook
@@ -61,6 +63,7 @@ class MainViewModel(private val bookRepository: Lazy<BookRepository>) : ViewMode
         _navigateToCreateBook.value = null
     }
 
+    /* Refresh logic */
     private val _isManuallyRefreshing = MutableLiveData(false)
     val isManuallyRefreshing
         get() = _isManuallyRefreshing
